@@ -207,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133981503}
   m_LocalRotation: {x: 0.7071068, y: 0.7071068, z: 0, w: 0}
-  m_LocalPosition: {x: -1.95, y: -0.53, z: -1.37}
+  m_LocalPosition: {x: -4.62, y: -0.53, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -242,6 +242,8 @@ GameObject:
   - component: {fileID: 193917095}
   - component: {fileID: 193917098}
   - component: {fileID: 193917099}
+  - component: {fileID: 193917101}
+  - component: {fileID: 193917100}
   m_Layer: 0
   m_Name: Cy_1 (3)
   m_TagString: Untagged
@@ -332,6 +334,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0d03bc3ade446d8beb4bb49496a1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &193917100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193917094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458475b6555bb444785d8b9df9de14c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!64 &193917101
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193917094}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 4300060, guid: 7ec775148a47c0e4bb2c8d4ef4504fee, type: 3}
 --- !u!1 &851361835
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +547,8 @@ GameObject:
   - component: {fileID: 1548214436}
   - component: {fileID: 1548214439}
   - component: {fileID: 1548214440}
-  - component: {fileID: 1548214441}
   - component: {fileID: 1548214442}
+  - component: {fileID: 1548214441}
   m_Layer: 0
   m_Name: Cy_1 (2)
   m_TagString: Untagged
@@ -611,23 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0d03bc3ade446d8beb4bb49496a1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &1548214441
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548214435}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 3
---- !u!114 &1548214442
+--- !u!114 &1548214441
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -636,9 +648,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1548214435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab00e8fb93db4614ca2b8c91181ebe99, type: 3}
+  m_Script: {fileID: 11500000, guid: 458475b6555bb444785d8b9df9de14c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &1548214442
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548214435}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 4300060, guid: 7ec775148a47c0e4bb2c8d4ef4504fee, type: 3}
 --- !u!1 &1787291852
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,6 +678,8 @@ GameObject:
   - component: {fileID: 1787291853}
   - component: {fileID: 1787291856}
   - component: {fileID: 1787291857}
+  - component: {fileID: 1787291859}
+  - component: {fileID: 1787291858}
   m_Layer: 0
   m_Name: Cy_1 (4)
   m_TagString: Untagged
@@ -742,6 +770,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0d03bc3ade446d8beb4bb49496a1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1787291858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787291852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458475b6555bb444785d8b9df9de14c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!64 &1787291859
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787291852}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 4300060, guid: 7ec775148a47c0e4bb2c8d4ef4504fee, type: 3}
 --- !u!1 &1921767733
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +809,8 @@ GameObject:
   - component: {fileID: 1921767734}
   - component: {fileID: 1921767738}
   - component: {fileID: 1921767737}
+  - component: {fileID: 1921767740}
+  - component: {fileID: 1921767739}
   m_Layer: 0
   m_Name: Cy_1 (1)
   m_TagString: Untagged
@@ -845,6 +901,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d0d03bc3ade446d8beb4bb49496a1e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1921767739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921767733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458475b6555bb444785d8b9df9de14c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!64 &1921767740
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921767733}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 4300060, guid: 7ec775148a47c0e4bb2c8d4ef4504fee, type: 3}
 --- !u!4 &1619223602534583808
 Transform:
   m_ObjectHideFlags: 0
@@ -1763,7 +1845,6 @@ GameObject:
   - component: {fileID: 1619223602535010823}
   - component: {fileID: 1619223602535010825}
   - component: {fileID: 1619223602535010827}
-  - component: {fileID: 1619223602535010831}
   - component: {fileID: 1619223602535010829}
   m_Layer: 0
   m_Name: Cy_1
@@ -1949,22 +2030,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!54 &1619223602535010831
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619223602535010820}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 3
 --- !u!1 &1619223602535010832
 GameObject:
   m_ObjectHideFlags: 0

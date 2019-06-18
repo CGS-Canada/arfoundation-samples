@@ -8,6 +8,7 @@ public class WaveFunction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      Debug.Log("test waves");
         
     }
 
@@ -17,9 +18,11 @@ public class WaveFunction : MonoBehaviour
 
      frames++;
      if (frames % 3 == 0) { //If the remainder of the current frame divided by 10 is 0 run the function.
-        transform.localScale += new Vector3(transform.localScale.x + 0.001F, transform.localScale.x + 0.001F, 0.001F);
+        transform.localScale = Vector3.Lerp(
+          transform.localScale, new Vector3(transform.localScale.x + 1F, transform.localScale.y + 1F, 0.01F), 0.1F
+        );
         if (transform.localScale.x > 10F) {
-          transform.localScale = new Vector3(0, 0, 0);
+          transform.localScale = new Vector3(0.001F, 0.001F, 0.001F);
         }
      }
     }

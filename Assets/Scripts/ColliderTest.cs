@@ -4,84 +4,81 @@ using UnityEngine;
 
 public class ColliderTest : MonoBehaviour
 {
-  void OnTriggerEnter(Collider collision)
+private Vector3 GetPointOfContact()
+{
+RaycastHit hit;
+if (Physics.Raycast(transform.position, transform.forward, out hit))
+{ 
+return hit.point;
+} else 
+{
+  return new Vector3(0, 0, 0);
+}
+}
+  void OnTriggerEnter(Collider collider)
   {
-    // GameObject obj1 = this.gameObject;
-    // GameObject obj2 = collision.gameObject;
+
+    Debug.Log("enter: " + collider.bounds);
+    
+    GameObject obj1 = this.gameObject;
+    GameObject obj2 = collider.gameObject;
 
     // // Debug.Log("Triggered Obj1: " + obj1.name);
-    // // Debug.Log("Triggered obj2: " + obj2.name + " " + obj2.transform.localPosition);
+    // Debug.Log("Triggered obj2: " + obj2.name + " " + obj2.transform.localPosition);
 
     // MeshFilter planeMesh = obj2.gameObject.GetComponent(typeof(MeshFilter)) as MeshFilter;
 
-    // int count = 1;
+    // bool hasThird = false;
     // int i = 0;
     // Vector3[] vertices = new Vector3[3];
     // vertices[0] = planeMesh.mesh.vertices[0];
-    // // Debug.Log(planeMesh.mesh.vertices.Length);
-    // while (count < 3 || i < planeMesh.mesh.vertices.Length)
+    // vertices[1] = planeMesh.mesh.vertices[1];
+    // while (!hasThird || i < planeMesh.mesh.vertices.Length)
     // {
-    //   if (
-    //     count == 1 &&
-    //     (vertices[0].x != planeMesh.mesh.vertices[i].x ||
-    //     vertices[0].y != planeMesh.mesh.vertices[i].y ||
-    //     vertices[0].z != planeMesh.mesh.vertices[i].z)
-    //   )
+    //   if (Vector3CanMakePlane(vertices[0], vertices[1], planeMesh.mesh.vertices[i]))
     //   {
-    //     vertices[1] = planeMesh.mesh.vertices[i];
-    //     count++;
-    //   }
-    //   else if (
-    //   count == 2 &&
-    //   (vertices[0].x != planeMesh.mesh.vertices[i].x &&
-    //   vertices[0].y != planeMesh.mesh.vertices[i].y ||
-    //   vertices[0].x != planeMesh.mesh.vertices[i].x &&
-    //   vertices[0].z != planeMesh.mesh.vertices[i].z ||
-    //   vertices[0].x != planeMesh.mesh.vertices[i].x &&
-    //   vertices[0].y != planeMesh.mesh.vertices[i].y ||
-    //   vertices[0].z != planeMesh.mesh.vertices[i].z &&
-    //   vertices[0].y != planeMesh.mesh.vertices[i].y) ||
-    //   (vertices[1].x != planeMesh.mesh.vertices[i].x &&
-    //   vertices[1].y != planeMesh.mesh.vertices[i].y ||
-    //   vertices[1].x != planeMesh.mesh.vertices[i].x &&
-    //   vertices[1].z != planeMesh.mesh.vertices[i].z ||
-    //   vertices[1].x != planeMesh.mesh.vertices[i].x &&
-    //   vertices[1].y != planeMesh.mesh.vertices[i].y ||
-    //   vertices[1].z != planeMesh.mesh.vertices[i].z &&
-    //   vertices[1].y != planeMesh.mesh.vertices[i].y)
-    // )
     //     vertices[2] = planeMesh.mesh.vertices[i];
-    //   count++;
+    //     hasThird = true;
+    //   };
     //   i++;
-
     // }
-    // // Debug.Log(vertices[0] + " " + vertices[1] + " " + vertices[2]);
+    // if (!hasThird)
+    // {
+    //   Debug.Log("failed to create plane");
+    //   return;
+    // }
 
-    // Plane myPlane = new Plane(vertices[0] + obj2.transform.localPosition, vertices[1] + obj2.transform.localPosition, vertices[2] + obj2.transform.localPosition);
+    // var norm = GetNormal(vertices[0], vertices[1], vertices[2]);
+    // // Plane myPlane = new Plane(norm, new Vector3(0, 0, 0));
+    // Plane myPlane = new Plane(norm, obj2.transform.localPosition);
 
     // Mesh mesh = GetComponent<MeshFilter>().mesh;
     // Vector3[] vertices2 = mesh.vertices;
+    // // Debug.Log(myPlane.normal + " " + myPlane.distance);
 
     // // create new colors array where the colors will be created.
     // Color[] colors = new Color[vertices2.Length];
-
-
     // for (int j = 0; j < vertices2.Length; j++)
     // {
     //   if (myPlane.GetSide(vertices2[j]))
     //   {
-    //     Debug.Log(myPlane.GetSide(vertices2[j]));
+    //     colors[j] = Color.red;
+    //     // Lerp(Color.red, Color.green, vertices2[j].y);
     //   }
-    //   colors[j] = Color.Lerp(Color.red, Color.green, vertices2[j].y);
+    //   else
+    //   {
+    //     colors[j] = Color.green;
+    //     // colors[j] = Color.Lerp(Color.green, Color.green, vertices2[j].y);
+    //   }
     // };
 
     // // assign the array of colors to the Mesh.
     // mesh.colors = colors;
-
   }
 
   void OnTriggerExit(Collider collision)
   {
+    Debug.Log("exit");
     Mesh mesh = GetComponent<MeshFilter>().mesh;
     Vector3[] vertices = mesh.vertices;
 
@@ -97,84 +94,51 @@ public class ColliderTest : MonoBehaviour
     mesh.colors = colors;
   }
 
-  void OnTriggerStay(Collider collision)
+    public bool stay = true;
+    private float stayCount = 0.0f;
+  void OnTriggerStay(Collider collider)
   {
-    GameObject obj1 = this.gameObject;
-    GameObject obj2 = collision.gameObject;
+        if (stay)
+        {
+            if (stayCount > 0.25f)
+            {
+    Debug.Log("enter: " + collider.bounds);
+                stayCount = stayCount - 0.25f;
+            }
+            else
+            {
+                stayCount = stayCount + Time.deltaTime;
+            }
+        }
+  }
 
-    // Debug.Log("Triggered Obj1: " + obj1.name);
-    Debug.Log("Triggered obj2: " + obj2.name + " " + obj2.transform.localToWorldMatrix);
+  Vector3 GetNormal(Vector3 a, Vector3 b, Vector3 c)
+  {
+    // Find vectors corresponding to two of the sides of the triangle.
+    Vector3 side1 = b - a;
+    Vector3 side2 = c - a;
 
-    MeshFilter planeMesh = obj2.gameObject.GetComponent(typeof(MeshFilter)) as MeshFilter;
+    // Cross the vectors to get a perpendicular vector, then normalize it.
+    return Vector3.Cross(side1, side2).normalized;
+  }
 
-    int count = 2;
-    int i = 0;
-    Vector3[] vertices = new Vector3[3];
-    vertices[0] = planeMesh.mesh.vertices[0];
-    vertices[1] = planeMesh.mesh.vertices[1];
-    // Debug.Log(planeMesh.mesh.vertices.Length);
-    while (count < 3 || i < planeMesh.mesh.vertices.Length)
-    {
-      if (
-        count == 1 &&
-        (vertices[0].x != planeMesh.mesh.vertices[i].x ||
-        vertices[0].y != planeMesh.mesh.vertices[i].y ||
-        vertices[0].z != planeMesh.mesh.vertices[i].z)
-      )
-      {
-        vertices[1] = planeMesh.mesh.vertices[i];
-        count++;
-      }
-      else if (
-      count == 2 &&
-      (vertices[0].x != planeMesh.mesh.vertices[i].x &&
-      vertices[0].y != planeMesh.mesh.vertices[i].y ||
-      vertices[0].x != planeMesh.mesh.vertices[i].x &&
-      vertices[0].z != planeMesh.mesh.vertices[i].z ||
-      vertices[0].x != planeMesh.mesh.vertices[i].x &&
-      vertices[0].y != planeMesh.mesh.vertices[i].y ||
-      vertices[0].z != planeMesh.mesh.vertices[i].z &&
-      vertices[0].y != planeMesh.mesh.vertices[i].y) &&
-      (vertices[1].x != planeMesh.mesh.vertices[i].x &&
-      vertices[1].y != planeMesh.mesh.vertices[i].y ||
-      vertices[1].x != planeMesh.mesh.vertices[i].x &&
-      vertices[1].z != planeMesh.mesh.vertices[i].z ||
-      vertices[1].x != planeMesh.mesh.vertices[i].x &&
-      vertices[1].y != planeMesh.mesh.vertices[i].y ||
-      vertices[1].z != planeMesh.mesh.vertices[i].z &&
-      vertices[1].y != planeMesh.mesh.vertices[i].y)
-    )
-        vertices[2] = planeMesh.mesh.vertices[i];
-      count++;
-      i++;
-
-    }
-    // Debug.Log(vertices[0] + " " + vertices[1] + " " + vertices[2]);
-    // Debug.Log((obj2.transform.localPosition + vertices[0]) + " " + (obj2.transform.localPosition + vertices[1]) + " " + (obj2.transform.localPosition + vertices[2]));
-    Plane myPlane = new Plane(obj2.transform.localPosition + vertices[0], obj2.transform.localPosition + vertices[1], obj2.transform.localPosition + vertices[2]);
-    Mesh mesh = GetComponent<MeshFilter>().mesh;
-    Vector3[] vertices2 = mesh.vertices;
-    // Debug.Log(myPlane.normal + " " + myPlane.distance);
-    // Debug.Log(myPlane.GetDistanceToPoint(new Vector3(0, 0, 0)));
-    // Debug.Log(myPlane.GetDistanceToPoint(new Vector3(1, 1, 1)));
-    // Debug.Log(myPlane.GetDistanceToPoint(new Vector3(1, 0, 1)));
-    // create new colors array where the colors will be created.
-    Color[] colors = new Color[vertices2.Length];
-    for (int j = 0; j < vertices2.Length; j++)
-    {
-      if (myPlane.GetSide(vertices2[j]))
-      {
-        colors[j] = Color.green;
-        // Lerp(Color.red, Color.green, vertices2[j].y);
-      }
-      else
-      {
-        colors[j] = Color.red;
-        // colors[j] = Color.Lerp(Color.green, Color.green, vertices2[j].y);
-      }
-    };
-
-    // assign the array of colors to the Mesh.
-    mesh.colors = colors;
+  bool Vector3CanMakePlane(Vector3 v1, Vector3 v2, Vector3 v3)
+  {
+    return ((v2.x != v3.x &&
+      v2.y != v3.y ||
+      v2.x != v3.x &&
+      v2.z != v3.z ||
+      v2.x != v3.x &&
+      v2.y != v3.y ||
+      v2.z != v3.z &&
+      v2.y != v3.y) &&
+      (v1.x != v3.x &&
+      v1.y != v3.y ||
+      v1.x != v3.x &&
+      v1.z != v3.z ||
+      v1.x != v3.x &&
+      v1.y != v3.y ||
+      v1.z != v3.z &&
+      v1.y != v3.y));
   }
 }
